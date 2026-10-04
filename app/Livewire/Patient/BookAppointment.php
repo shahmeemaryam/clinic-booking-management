@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Livewire\Patient;
-
+use Illuminate\Support\Facades\Log;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorAvailability;
@@ -50,11 +50,11 @@ class BookAppointment extends Component
 
     public function chooseMode(string $mode): void
     {
-        logger()->info('BookAppointment chooseMode debug', [
+        Log::info('BookAppointment chooseMode debug', [
     'mode' => $mode,
-    'authenticated' => auth()->check(),
-    'user_id' => auth()->id(),
-    'session_id' => session()->getId(),
+    'authenticated' => request()->user() !== null,
+    'user_id' => request()->user()?->id,
+    'session_id' => request()->session()->getId(),
 ]);
         if (!in_array($mode, ['doctor', 'date'], true)) {
             return;
