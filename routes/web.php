@@ -15,22 +15,13 @@ use App\Http\Controllers\StaffScheduleController;
 use App\Http\Controllers\StaffClinicQueueController;
 
 
-Route::get('/debug-auth', function (Request $request) {
-    return response()->json([
-        'authenticated' => Auth::check(),
-        'user_id' => Auth::id(),
-        'session_id' => $request->session()->getId(),
-        'session_keys' => array_keys($request->session()->all()),
-    ]);
-});
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
- Route::get('/patient/book-appointment', BookAppointment::class)
-    
-    ->name('patient.book-appointment');
+
 
 Route::middleware('auth')->group(function () {
 
@@ -70,7 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 
-       
+       Route::get('/patient/book-appointment', BookAppointment::class)
+    ->middleware('role:patient')
+    ->name('patient.book-appointment');
 
 
     Route::get('/payment/sandbox/{payment}', [SandboxPaymentController::class, 'show'])
