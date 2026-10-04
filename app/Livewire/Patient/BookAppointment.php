@@ -50,6 +50,12 @@ class BookAppointment extends Component
 
     public function chooseMode(string $mode): void
     {
+        logger()->info('BookAppointment chooseMode debug', [
+    'mode' => $mode,
+    'authenticated' => auth()->check(),
+    'user_id' => auth()->id(),
+    'session_id' => session()->getId(),
+]);
         if (!in_array($mode, ['doctor', 'date'], true)) {
             return;
         }
