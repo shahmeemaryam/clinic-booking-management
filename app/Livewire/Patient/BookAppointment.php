@@ -52,15 +52,15 @@ class BookAppointment extends Component
         $this->minBookingDate = today()->toDateString();
         $this->maxBookingDate = today()->addDays(7)->toDateString();
     }
-public function hydrate(): void
-{
-    abort_unless(
-        Auth::check() && Auth::user()?->role === 'patient',
-        403
-    );
-}
+
     public function chooseMode(string $mode): void
     {
+        $this->message =
+    'DEBUG: authenticated=' . (Auth::check() ? 'true' : 'false') .
+    ' | user_id=' . (Auth::id() ?? 'null');
+
+return;
+
         Log::info('BookAppointment chooseMode debug', [
     'mode' => $mode,
     'authenticated' => request()->user() !== null,
