@@ -55,12 +55,7 @@ class BookAppointment extends Component
 
     public function chooseMode(string $mode): void
     {
-        $this->message =
-    'DEBUG: authenticated=' . (Auth::check() ? 'true' : 'false') .
-    ' | user_id=' . (Auth::id() ?? 'null');
-
-return;
-
+        
         Log::info('BookAppointment chooseMode debug', [
     'mode' => $mode,
     'authenticated' => request()->user() !== null,
