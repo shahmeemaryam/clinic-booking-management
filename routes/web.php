@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PatientDashboardController;
 use App\Http\Controllers\DoctorDashboardController;
@@ -12,6 +13,16 @@ use App\Http\Controllers\PatientPaymentController;
 use App\Http\Controllers\StaffDoctorController;
 use App\Http\Controllers\StaffScheduleController;
 use App\Http\Controllers\StaffClinicQueueController;
+
+
+Route::get('/debug-auth', function (Request $request) {
+    return response()->json([
+        'authenticated' => Auth::check(),
+        'user_id' => Auth::id(),
+        'session_id' => $request->session()->getId(),
+        'session_keys' => array_keys($request->session()->all()),
+    ]);
+});
 
 Route::get('/', function () {
     return view('welcome');
