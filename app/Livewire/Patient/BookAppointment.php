@@ -44,10 +44,21 @@ class BookAppointment extends Component
 
     public function mount(): void
     {
+        if (! Auth::check() || Auth::user()?->role !== 'patient') {
+    $this->redirectRoute('login');
+    return;
+}
+
         $this->minBookingDate = today()->toDateString();
         $this->maxBookingDate = today()->addDays(7)->toDateString();
     }
-
+public function hydrate(): void
+{
+    abort_unless(
+        Auth::check() && Auth::user()?->role === 'patient',
+        403
+    );
+}
     public function chooseMode(string $mode): void
     {
         Log::info('BookAppointment chooseMode debug', [

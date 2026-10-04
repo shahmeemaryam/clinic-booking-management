@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+ Route::get('/patient/book-appointment', BookAppointment::class)
+    
+    ->name('patient.book-appointment');
+
 Route::middleware('auth')->group(function () {
 
    Route::get('/dashboard', function (Request $request) {
@@ -66,9 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 
-        Route::get('/patient/book-appointment', BookAppointment::class)
-    ->middleware('role:patient')
-    ->name('patient.book-appointment');
+       
 
 
     Route::get('/payment/sandbox/{payment}', [SandboxPaymentController::class, 'show'])
