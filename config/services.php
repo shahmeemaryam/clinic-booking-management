@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'api_ninjas' => [
+    'key' => env('API_NINJAS_KEY'),
+],
+
+'weather' => [
+    'latitude' => env('WEATHER_LATITUDE'),
+    'longitude' => env('WEATHER_LONGITUDE'),
+],
+
 ];
